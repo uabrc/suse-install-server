@@ -72,5 +72,19 @@
       vars:
           node: "{{ item.value }}"
       loop: "{{ nodes | dict2items }}"
-        
-      
+
+    - name: add tftp service in internal firewall
+      firewalld:
+        service: tftp
+        zone: internal
+        permanent: yes
+        immediate: yes
+        state: enabled
+
+    - name: add cluster net interface to internal firewall
+      firewalld:
+        interface: "{{ DHCPD_INTERFACE }}"
+        zone: internal
+        permanent: yes
+        immediate: yes
+        state: enabled
