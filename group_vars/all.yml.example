@@ -1,0 +1,35 @@
+---
+TFTP_SERVER: "192.168.1.1"
+INST_SERVER: "{{ TFTP_SERVER }}"
+INST_PATH: "sles"
+OS_TAG: "SLE"
+OS_VERSION: "15-SP2"
+ARCH: "x86_64"
+OS_TFTP_TAG: "{{ OS_TAG }}-{{ OS_VERSION }}-{{ ARCH }}"
+MTU: 1500
+GATEWAY: "192.168.11.1"
+DNS1: "8.8.8.8"
+DNS2: "9.9.9.9"
+DNS3: ""
+DOMAIN: "nl.rc.uab.edu"
+DHCPD_INTERFACE: "vlan1"
+IFCFG_INTERFACE: "eth0.1"
+DHCP_IP_RANGE: "192.168.1.100 192.168.1.199"
+CLUSTER_SUBNET: "192.168.1.0"
+CLUSTER_SUBNET_MASK: "255.255.255.0"
+NTP_SERVERS: "pool.ntp.org"
+
+install_sys: "tftp://{{ TFTP_SERVER }}/{{ OS_TFTP_TAG }}/boot/{{ ARCH }}/root"
+install_url: "http://{{ INST_SERVER }}/{{ INST_PATH }}"
+
+nodes:
+  02-00-00-00-00-01:
+    eth: '02:00:00:00:00:01'
+    name: "node01"
+    ip: "192.168.1.11"
+    cidr: "192.168.1.11/24"
+  02-00-00-00-00-02":
+    eth: '02:00:00:00:00:02'
+    name: "node02"
+    ip: "192.168.1.12"
+    cidr: "192.168.1.12/24"

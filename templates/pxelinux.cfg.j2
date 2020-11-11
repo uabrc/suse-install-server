@@ -1,0 +1,14 @@
+default linux
+
+# install
+label linux
+  ipappend 2
+  kernel boot/{{ ARCH }}/loader/linux
+  append initrd=boot/{{ ARCH }}/loader/initrd instsys={{ install_sys }} \
+         install={{ install_url }} \
+         ifcfg={{ IFCFG_INTERFACE }}="{{ node.cidr }},{{ GATEWAY }},{{ DNS1 }} {{ DNS2 }},{{ DOMAIN }}",MTU={{ MTU }}"
+
+display  message
+implicit 1
+prompt  1
+timeout  50

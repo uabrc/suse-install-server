@@ -1,0 +1,2 @@
+[nodes]
+head ansible_host=EXETERNAL_IP ansible_user=SUDO_ADMIN_USER

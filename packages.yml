@@ -1,0 +1,76 @@
+#
+# configure suse install server
+#
+
+- hosts: head
+  become: yes
+  become_user: root
+
+  tasks:
+
+    #- name: install yast install server package
+    #  zypper:
+    #    name: yast-instserver
+    #    state: present
+
+    - name: install dhcp server
+      zypper:
+        name: dhcp-server
+        state: present
+
+    - name: configure dhcpd
+      template:
+        src: templates/dhcpd.conf.j2
+        dest: /etc/dhcpd.conf
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
+
+    # note: for vlan interfaces the @rootdevice qualier is dropped"
+    - name: set dhcpd interface to cluster net
+      lineinfile:
+        path: /etc/sysconfig/dhcpd
+        regexp: '^DHCPD_INTERFACE=""'
+        line: DHCPD_INTERFACE="{{ DHCPD_INTERFACE }}"
+
+    - name: start dhcpd
+      systemd:
+        name: dhcpd
+        enabled: yes
+        state: restarted
+
+    - name: install tfptd
+      zypper:
+        name: tftp
+        state: present
+        
+    - name: install tftp server with suse boot images
+      zypper:
+        name: tftpboot-installation-{{ OS_TFTP_TAG }}
+        state: present
+
+    - name: check if images in correct location
+      shell: ls /srv/tftpboot/{{ OS_TFTP_TAG }} > /dev/null
+      register: ls_check
+      ignore_errors: true
+
+    - name: copy boot images into place
+      shell: cp -r /usr/share/tftpboot-installation/{{ OS_TFTP_TAG }} /srv/tftpboot
+      when: ls_check.rc == 2
+      
+    - name: start tftp on demand
+      systemd:
+        name: tftp
+        enabled: yes
+        state: restarted
+
+    - name: load per node pxe configure
+      template:
+          src: templates/pxelinux.cfg.j2
+          dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/pxelinux.cfg/c0-{{ item.key }}.cfg
+      vars:
+          node: "{{ item.value }}"
+      loop: "{{ nodes | dict2items }}"
+        
+      
