@@ -40,7 +40,7 @@
         enabled: yes
         state: restarted
 
-    - name: install tfptd
+    - name: install tftpd
       zypper:
         name: tftp
         state: present
@@ -50,6 +50,9 @@
         name: tftpboot-installation-{{ OS_TFTP_TAG }}
         state: present
 
+    # the following tftp config is based on the README from the tftpboot-installation* package
+    # and the multi-architecture config white paper
+    # https://documentation.suse.com/sbp/all/pdf/SBP-Multi-PXE-Install_color_en.pdf
     - name: check if images in correct location
       shell: ls /srv/tftpboot/{{ OS_TFTP_TAG }} > /dev/null
       register: ls_check
@@ -59,6 +62,13 @@
       shell: cp -r /usr/share/tftpboot-installation/{{ OS_TFTP_TAG }} /srv/tftpboot
       when: ls_check.rc == 2
       
+    # note: for vlan interfaces the @rootdevice qualfier is dropped
+    - name: set update grub.cfg for net boot
+      template:
+        src: templates/grub-net.cfg.j2
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/grub.cfg
+        backup: yes
+
     - name: start tftp on demand
       systemd:
         name: tftp

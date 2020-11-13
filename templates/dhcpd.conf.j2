@@ -14,7 +14,8 @@ subnet {{ CLUSTER_SUBNET }} netmask {{ CLUSTER_SUBNET_MASK }} {
  default-lease-time 3600;
  max-lease-time 3600;
  if option arch = 00:07 or option arch = 00:09 {
-   filename "/{{ OS_TFTP_TAG }}/EFI/BOOT/grub.efi";
+    filename "/{{ OS_TFTP_TAG }}/net/x86_64-efi/bootx64.efi";
+
  }
  else if option arch = 00:0b {
    filename "/{{ OS_TFTP_TAG }}/EFI/aarch64/bootaa64.efi";

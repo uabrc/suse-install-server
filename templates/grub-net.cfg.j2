@@ -1,0 +1,15 @@
+gfxmode=auto
+timeout=5
+default=1
+
+locale_dir=$prefix/grub.locale
+lang=en_US
+
+menuentry 'Installation' {
+  set gfxpayload=keep
+  echo 'Loading kernel ...'
+  linuxefi $prefix/boot/x86_64/loader/linux instsys=tftp://{{ TFTP_SERVER }}/SLE-15-SP2-x86_64/boot/x86_64/root install={{ REPO_URL }}
+  echo 'Loading initrd ...'
+  initrdefi $prefix/boot/x86_64/loader/initrd
+}
+
