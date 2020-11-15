@@ -1,0 +1,3 @@
+# Register the HTTP Installation Server
+service:install.suse:http://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/,en,65535
+description=HTTP Repository

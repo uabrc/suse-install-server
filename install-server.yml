@@ -1,0 +1,66 @@
+#
+# configure suse install server
+#
+
+- hosts: head
+  become: yes
+  become_user: root
+
+  tasks:
+  - name: install apache for install services
+    zypper:
+      name: apache2
+      state: present
+      
+  - name: add http service in internal firewall
+    firewalld:
+      service: http
+      zone: internal
+      permanent: yes
+      immediate: yes
+      state: enabled
+
+  - name: link to the install location from document rootdevice
+    file:
+      src: /srv/install/x86_64/{{ INST_PATH|lower }}{{ OS_RELEASE }}
+      path: /srv/www/htdocs/{{ INST_PATH|lower }}{{ OS_RELEASE }}
+      state: link
+
+  - name: set apache2 to follow symlinks
+    lineinfile:
+      path: /etc/apache2/default-server.conf
+      regexp: '(^\t)Options None'
+      line: '\1Options Indexes FollowSymLinks'
+      backrefs: yes
+      backup: yes
+
+  - name: start apache2
+    systemd:
+      name: apache2
+      enabled: yes
+      state: restarted
+
+  - name: install apache for install services
+    zypper:
+      name: openslp-server
+      state: present
+      
+  - name: set update slp advertisement
+    template:
+      src: templates/install.suse.http.reg.j2
+      dest: /etc/slp.reg.d/install.suse.http.reg
+      backup: yes
+
+  - name: add slp service in internal firewall
+    firewalld:
+      service: slp
+      zone: internal
+      permanent: yes
+      immediate: yes
+      state: enabled
+      
+  - name: start slpd
+    systemd:
+      name: slpd
+      enabled: yes
+      state: restarted
