@@ -61,13 +61,6 @@
     - name: copy boot images into place
       shell: cp -r /usr/share/tftpboot-installation/{{ OS_TFTP_TAG }} /srv/tftpboot
       when: ls_check.rc == 2
-      
-    # note: for vlan interfaces the @rootdevice qualfier is dropped
-    - name: set update grub.cfg for net boot
-      template:
-        src: templates/grub-net.cfg.j2
-        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/grub.cfg
-        backup: yes
 
     - name: start tftp on demand
       systemd:
@@ -77,8 +70,8 @@
 
     - name: load per node pxe configure
       template:
-          src: templates/pxelinux.cfg.j2
-          dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/pxelinux.cfg/c0-{{ item.key }}.cfg
+          src: templates/grub-net.cfg.j2
+          dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/grub.cfg-01-{{ item.key }}
       vars:
           node: "{{ item.value }}"
       loop: "{{ nodes | dict2items }}"
