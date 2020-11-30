@@ -1,0 +1,64 @@
+#
+# configure suse rmt server
+# 
+# follow steps from:
+# https://documentation.suse.com/sles/15-SP1/single-html/SLES-rmt/index.html
+
+- hosts: head
+  become: yes
+  become_user: root
+
+  tasks:
+  - name: disable apache2 which conflicts with rmt nginx
+    systemd:
+      name: apache2
+      enabled: no
+      state: stopped
+
+  # ensure recommended dependcies are installed
+  - name: install rmt service
+    zypper:
+      name: rmt-server
+      disable_recommends: no
+      state: present
+      
+  - name: add rmt service in internal firewall
+    firewalld:
+      port: 427/tcp
+      zone: internal
+      permanent: yes
+      immediate: yes
+      state: enabled
+
+  - firewalld:
+      port: 427/udp
+      zone: internal
+      permanent: yes
+      immediate: yes
+      state: enabled
+
+  - name: install slp to advertise rmt services
+    zypper:
+      name: openslp-server
+      state: present
+      
+  - name: add slp service in internal firewall
+    firewalld:
+      service: slp
+      zone: internal
+      permanent: yes
+      immediate: yes
+      state: enabled
+      
+  - name: start slpd
+    systemd:
+      name: slpd
+      enabled: yes
+      state: restarted
+
+  - name: enable rmt-servers
+    systemd:
+      name: rmt-server
+      enabled: yes
+      state: restarted
+      
