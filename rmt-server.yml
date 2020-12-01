@@ -21,6 +21,14 @@
       name: rmt-server
       disable_recommends: no
       state: present
+
+  - name: set rmt service to host IP
+    lineinfile:
+      path: /etc/slp.reg.d/rmt-server.reg
+      regexp: '^(.*)\$HOSTNAME(.*)$'
+      line: \g<1>{{ RMT_SERVER }}\g<2>'
+      backrefs: yes
+      backup: yes
       
   - name: add rmt service in internal firewall
     firewalld:
