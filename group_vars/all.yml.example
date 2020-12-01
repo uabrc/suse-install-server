@@ -19,6 +19,7 @@ CLUSTER_SUBNET: "192.168.1.0"
 CLUSTER_SUBNET_MASK: "255.255.255.0"
 NTP_SERVERS: "pool.ntp.org"
 REPO_URL: "slp:/"
+VENV_PYTHON: "/path/to/python/venv/that/has/the/modules/you/need"
 
 install_sys: "tftp://{{ TFTP_SERVER }}/{{ OS_TFTP_TAG }}/boot/{{ ARCH }}/root"
 install_url: "http://{{ INST_SERVER }}/{{ INST_PATH }}"

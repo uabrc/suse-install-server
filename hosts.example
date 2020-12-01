@@ -1,2 +1,5 @@
 [nodes]
 head ansible_host=EXETERNAL_IP ansible_user=SUDO_ADMIN_USER
+
+[PowerEdge]
+bmc1 idrac_ip='ip.or.hostname' idrac_user='root' idrac_password='calvin'
