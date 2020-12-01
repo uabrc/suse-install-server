@@ -1,0 +1,32 @@
+---
+# interact with idrac bmc inteface of dell hardware
+# must be run on machine that can reach iDRAC
+# has dependcies on omsdk pip module so specify the virtualenv on the local
+# machine which has that installed `pip install omsdk`
+# also requires the dellemc collections which can be installed with
+# ansible-galaxy collection install  dellemc.openmanage --collections collections/
+- hosts: PowerEdge
+  connection: local
+  gather_facts: False
+  vars:
+    ansible_python_interpreter: "{{ VENV_PYTHON }}"
+  collections:
+    - dellemc.openmanage
+  
+  tasks:
+  - name: Get hardware inventory
+    dellemc_get_system_inventory:
+      idrac_ip:  "{{ idrac_ip }}"
+      idrac_user:  "{{ idrac_user }}"
+      idrac_password:  "{{ idrac_password }}"
+    register: inventory_result
+  
+  # would be nice to have an option to save the json to a file on the controller
+  # this feature doesn't work right because it tries to write on the client (idrac end)
+  # based on:
+  # https://stackoverflow.com/a/26735551/8928529  
+  # - name: Write hardware inventory to files
+  #   local_action:
+  #     module: copy
+  #     content: "{{ inventory_result }}"
+  #     dest: "idrac-facts.json"
