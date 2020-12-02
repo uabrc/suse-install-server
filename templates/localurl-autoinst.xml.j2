@@ -1072,6 +1072,16 @@ DefaultPolicy default
     <copy_config config:type="boolean">false</copy_config>
     <import config:type="boolean">false</import>
   </ssh_import>
+  <suse_register>
+    <addons config:type="list"/>
+    <do_registration config:type="boolean">true</do_registration>
+    <email/>
+    <install_updates config:type="boolean">true</install_updates>
+    <reg_code/>
+    <reg_server><![CDATA[http://{{ TFTP_SERVER }}/]]></reg_server>
+    <reg_server_cert/>
+    <slp_discovery config:type="boolean">false</slp_discovery>
+  </suse_register>
   <tftp-server>
     <start_tftpd config:type="boolean">false</start_tftpd>
   </tftp-server>
