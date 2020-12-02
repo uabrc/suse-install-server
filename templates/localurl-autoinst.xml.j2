@@ -5,14 +5,14 @@
     <add_on_others config:type="list">
       <listentry>
         <alias>Basesystem_Module_15_SP2_x86_64:SLE-Module-Basesystem15-SP2-Updates</alias>
-        <media_url><![CDATA[http://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
         <name>SLE-Module-Basesystem15-SP2-Updates</name>
         <priority config:type="integer">99</priority>
         <product_dir>Module-Basesystem</product_dir>
       </listentry>
       <listentry>
         <alias>Server_Applications_Module_15_SP2_x86_64:SLE-Module-Server-Applications15-SP2-Updates</alias>
-        <media_url><![CDATA[http://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
         <name>SLE-Module-Server-Applications15-SP2-Updates</name>
         <priority config:type="integer">99</priority>
         <product_dir>Module-Server-Applications</product_dir>
@@ -20,12 +20,12 @@
     </add_on_others>
     <add_on_products config:type="list">
       <listentry>
-        <media_url><![CDATA[http://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
         <product>SLE-Module-Basesystem15-SP2-Pool</product>
         <product_dir>Module-Basesystem</product_dir>
       </listentry>
       <listentry>
-        <media_url><![CDATA[http://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}{{ OS_RELEASE }}/{{ OS_PATCH|lower }}/DVD1/]]></media_url>
         <product>SLE-Module-Server-Applications15-SP2-Pool</product>
         <product_dir>Module-Server-Applications</product_dir>
       </listentry>
