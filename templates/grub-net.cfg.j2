@@ -8,7 +8,7 @@ lang=en_US
 menuentry 'Installation' {
   set gfxpayload=keep
   echo 'Loading kernel ...'
-  linuxefi $prefix/boot/x86_64/loader/linux instsys=tftp://{{ TFTP_SERVER }}/SLE-15-SP2-x86_64/boot/x86_64/root regurl={{ REPO_URL }} self_update=0 textmode=1 autoyast=tftp://{{ TFTP_SERVER }}/SLE-15-SP2-x86_64/autoyast/{{ node.name }}-autoinst.xml
+  linuxefi $prefix/boot/x86_64/loader/linux instsys=tftp://{{ TFTP_SERVER }}/SLE-15-SP2-x86_64/boot/x86_64/root install={{ REPO_URL }} self_update=0 textmode=1 autoyast=tftp://{{ TFTP_SERVER }}/SLE-15-SP2-x86_64/autoyast/{{ node.name }}-autoinst.xml
   echo 'Loading initrd ...'
   initrdefi $prefix/boot/x86_64/loader/initrd
 }
