@@ -45,6 +45,21 @@
       immediate: yes
       state: enabled
 
+  - name: add http/s service in internal firewall
+    firewalld:
+      service: http
+      zone: internal
+      permanent: yes
+      immediate: yes
+      state: enabled
+
+  - firewalld:
+      service: https
+      zone: internal
+      permanent: yes
+      immediate: yes
+      state: enabled
+
   - name: install slp to advertise rmt services
     zypper:
       name: openslp-server
