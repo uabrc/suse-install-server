@@ -25,6 +25,13 @@ VENV_PYTHON: "/path/to/python/venv/that/has/the/modules/you/need"
 install_sys: "tftp://{{ TFTP_SERVER }}/{{ OS_TFTP_TAG }}/boot/{{ ARCH }}/root"
 install_url: "http://{{ INST_SERVER }}/{{ INST_PATH }}"
 
+adminaccount:
+  fullname: "Admin"
+  username: "admin"
+  password: "!!"
+root:
+  password: "!!"
+
 nodes:
   02-00-00-00-00-01:
     eth: '02:00:00:00:00:01'

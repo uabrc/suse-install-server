@@ -447,8 +447,8 @@
     <user>
       <authorized_keys config:type="list"/>
       <encrypted config:type="boolean">true</encrypted>
-      <fullname>salt</fullname>
-      <home>/home/salt</home>
+      <fullname>{{ adminaccount.fullname }}</fullname>
+      <home>/home/{{ adminaccount.username }}</home>
       <home_btrfs_subvolume config:type="boolean">false</home_btrfs_subvolume>
       <password_settings>
         <expire/>
@@ -459,8 +459,8 @@
         <warn>7</warn>
       </password_settings>
       <shell>/bin/bash</shell>
-      <user_password>$6$xw8XmMQiKens$.23I.LoLfgcuoYELjeqw22lFimDuxactTW6lD62HO9U/SR4AiNHH3rqmj3OPqzaYInZHItYFo2Uc4urATENZr/</user_password>
-      <username>salt</username>
+      <user_password>{{ adminaccount.password }}</user_password>
+      <username>{{ adminaccount.username }}</username>
     </user>
     <user>
       <authorized_keys config:type="list"/>
@@ -479,7 +479,7 @@
       </password_settings>
       <shell>/bin/bash</shell>
       <uid>0</uid>
-      <user_password>$6$z0rPRqoaIwxV$Y.nKBppCsc0TtIXukheyRiqnqmgd8q417YWn9EKGHYV8L033xMMrZ27VVcANq57GtOytJxvqimuGM2Zd17xbx/</user_password>
+      <user_password>{{ root.password }}</user_password>
       <username>root</username>
     </user>
   </users>
