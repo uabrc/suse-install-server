@@ -11,6 +11,7 @@
     template:
         src: templates/grub-net.cfg.j2
         dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/grub.cfg-01-{{ item.key }}
+        backup: yes
     vars:
         node: "{{ item.value }}"
     loop: "{{ nodes | dict2items }}"
@@ -19,6 +20,7 @@
     template:
         src: templates/localurl-autoinst.xml.j2
         dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
+        backup: yes
     vars:
         node: "{{ item.value }}"
     loop: "{{ nodes | dict2items }}"
