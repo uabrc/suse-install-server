@@ -49,130 +49,10 @@
     <image_installation config:type="boolean">false</image_installation>
   </deploy_image>
   <firewall>
-    <default_zone>public</default_zone>
-    <enable_firewall config:type="boolean">true</enable_firewall>
-    <log_denied_packets>off</log_denied_packets>
-    <start_firewall config:type="boolean">true</start_firewall>
-    <zones config:type="list">
-      <zone>
-        <description>Unsolicited incoming network packets are rejected. Incoming packets that are related to outgoing network connections are accepted. Outgoing network connections are allowed.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>block</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list"/>
-        <short>Block</short>
-        <target>%%REJECT%%</target>
-      </zone>
-      <zone>
-        <description>For computers in your demilitarized zone that are publicly-accessible with limited access to your internal network. Only selected incoming connections are accepted.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>dmz</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list">
-          <service>ssh</service>
-        </services>
-        <short>DMZ</short>
-        <target>default</target>
-      </zone>
-      <zone>
-        <description>Unsolicited incoming network packets are dropped. Incoming packets that are related to outgoing network connections are accepted. Outgoing network connections are allowed.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>drop</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list"/>
-        <short>Drop</short>
-        <target>DROP</target>
-      </zone>
-      <zone>
-        <description>For use on external networks. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">true</masquerade>
-        <name>external</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list">
-          <service>ssh</service>
-        </services>
-        <short>External</short>
-        <target>default</target>
-      </zone>
-      <zone>
-        <description>For use in home areas. You mostly trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>home</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list">
-          <service>ssh</service>
-          <service>mdns</service>
-          <service>samba-client</service>
-          <service>dhcpv6-client</service>
-        </services>
-        <short>Home</short>
-        <target>default</target>
-      </zone>
-      <zone>
-        <description>For use on internal networks. You mostly trust the other computers on the networks to not harm your computer. Only selected incoming connections are accepted.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>internal</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list">
-          <service>ssh</service>
-          <service>mdns</service>
-          <service>samba-client</service>
-          <service>dhcpv6-client</service>
-        </services>
-        <short>Internal</short>
-        <target>default</target>
-      </zone>
-      <zone>
-        <description>For use in public areas. You do not trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>public</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list">
-          <service>dhcpv6-client</service>
-        </services>
-        <short>Public</short>
-        <target>default</target>
-      </zone>
-      <zone>
-        <description>All network connections are accepted.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>trusted</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list"/>
-        <short>Trusted</short>
-        <target>ACCEPT</target>
-      </zone>
-      <zone>
-        <description>For use in work areas. You mostly trust the other computers on networks to not harm your computer. Only selected incoming connections are accepted.</description>
-        <interfaces config:type="list"/>
-        <masquerade config:type="boolean">false</masquerade>
-        <name>work</name>
-        <ports config:type="list"/>
-        <protocols config:type="list"/>
-        <services config:type="list">
-          <service>ssh</service>
-          <service>dhcpv6-client</service>
-        </services>
-        <short>Work</short>
-        <target>default</target>
-      </zone>
-    </zones>
+     <default_zone>public</default_zone>
+     <enable_firewall config:type="boolean">false</enable_firewall>
+     <log_denied_packets>off</log_denied_packets>
+     <start_firewall config:type="boolean">false</start_firewall>
   </firewall>
   <general>
     <ask-list config:type="list"/>
@@ -257,25 +137,9 @@
     </dns>
     <interfaces config:type="list">
       <interface>
-        <bootproto>none</bootproto>
-        <mtu>{{ MTU }}</mtu>
-        <name>em1</name>
-        <startmode>auto</startmode>
-      </interface>
-      <interface>
         <bootproto>dhcp</bootproto>
-        <name>em2</name>
-        <startmode>auto</startmode>
-      </interface>
-      <interface>
-        <bootproto>static</bootproto>
-        <etherdevice>em1</etherdevice>
-        <ipaddr>{{ node.ip }}</ipaddr>
-        <mtu>{{ MTU }}</mtu>
-        <name>vlan2049</name>
-        <prefixlen>{{ node.prefixlen }}</prefixlen>
-        <startmode>auto</startmode>
-        <vlan_id>2049</vlan_id>
+        <name>{{ node.etherdevice }}</name>
+         <startmode>auto</startmode>
       </interface>
     </interfaces>
     <ipv6 config:type="boolean">true</ipv6>
@@ -287,8 +151,8 @@
       <routes config:type="list">
         <route>
           <destination>default</destination>
-          <device>vlan2049</device>
-          <gateway>192.168.18.1</gateway>
+          <device>{{ node.etherdevice }}</device>
+          <gateway>{{ GATEWAY }}</gateway>
           <netmask>-</netmask>
         </route>
       </routes>
