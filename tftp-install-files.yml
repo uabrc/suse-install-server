@@ -19,7 +19,7 @@
   - name: load per node autoyast install configuration
     template:
         src: templates/localurl-autoinst.xml.j2
-        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.eth|replace(":", "") }}
         backup: yes
     vars:
         node: "{{ item.value }}"
