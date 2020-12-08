@@ -7,19 +7,40 @@
   become_user: root
 
   tasks:
-  - name: load per node pxe configure
+  - name: ensure no default efi pxe configure exists
+    file:
+        path: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/grub.cfg
+        state: absent
+
+  - name: load per node efi pxe configure
     template:
         src: templates/grub-net.cfg.j2
-        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/grub.cfg-01-{{ item.key }}
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/grub.cfg-01-{{ node.eth|replace(":", "-") }}
         backup: yes
     vars:
         node: "{{ item.value }}"
     loop: "{{ nodes | dict2items }}"
+    when: node.pxeimg == "efi"
+
+  - name: ensure no default bios pxe configure exists
+    file:
+        path: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/pxelinux.cfg/default
+        state: absent
+
+  - name: load per node bios pxe configure
+    template:
+        src: templates/pxelinux.cfg.j2
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/net/pxelinux.cfg/01-{{ node.eth|replace(":", "-") }}
+        backup: yes
+    vars:
+        node: "{{ item.value }}"
+    loop: "{{ nodes | dict2items }}"
+    when: node.pxeimg == "bios"
 
   - name: load per node autoyast install configuration
     template:
         src: templates/localurl-autoinst.xml.j2
-        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.eth|replace(":", "") }}
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
         backup: yes
     vars:
         node: "{{ item.value }}"
