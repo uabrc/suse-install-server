@@ -62,7 +62,7 @@
     <proposals config:type="list"/>
     <signature-handling>
       <accept_verification_failed config:type="boolean">
-        true  
+        true
       </accept_verification_failed>
     </signature-handling>
     <storage/>
@@ -172,7 +172,14 @@
   </ntp-client>
   <partitioning config:type="list">
     <drive>
-      <device>/dev/sda</device>
+      <initialize config:type="boolean">true</initialize>
+      <skip_list config:type="list">
+        <listentry>
+          <skip_key>size_k</skip_key>
+          <skip_value>943718400</skip_value>
+          <skip_if_more_than config:type="boolean">true</skip_if_more_than>
+        </listentry>
+      </skip_list>
       <disklabel>gpt</disklabel>
       <enable_snapshots config:type="boolean">true</enable_snapshots>
       <initialize config:type="boolean">false</initialize>
