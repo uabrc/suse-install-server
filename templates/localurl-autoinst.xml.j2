@@ -180,6 +180,36 @@
           <skip_if_more_than config:type="boolean">true</skip_if_more_than>
         </listentry>
       </skip_list>
+      <disklabel>none</disklabel>
+      <partitions config:type="list">
+        <partition>
+          <raid_name>/dev/md/0</raid_name>
+          <size>max</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+    <drive>
+      <initialize config:type="boolean">true</initialize>
+      <skip_list config:type="list">
+        <listentry>
+          <skip_key>size_k</skip_key>
+          <skip_value>943718400</skip_value>
+          <skip_if_more_than config:type="boolean">true</skip_if_more_than>
+        </listentry>
+      </skip_list>
+      <disklabel>none</disklabel>
+      <partitions config:type="list">
+        <partition>
+          <raid_name>/dev/md/0</raid_name>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+    <drive>
+      <device>/dev/md/0</device>
       <disklabel>gpt</disklabel>
       <enable_snapshots config:type="boolean">true</enable_snapshots>
       <initialize config:type="boolean">false</initialize>
@@ -268,8 +298,13 @@
           <size>21475868160</size>
         </partition>
       </partitions>
-      <type config:type="symbol">CT_DISK</type>
+      <type config:type="symbol">CT_MD</type>
       <use>all</use>
+      <raid_options>
+        <chunk_size>0B</chunk_size>
+        <parity_algorithm>default</parity_algorithm>
+        <raid_type>raid1</raid_type>
+      </raid_options>
     </drive>
   </partitioning>
   <proxy>
