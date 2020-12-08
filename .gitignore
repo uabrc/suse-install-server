@@ -1,0 +1,6 @@
+collections/
+files/
+tmp/
+venv/
+hosts
+group_vars/all.yml
