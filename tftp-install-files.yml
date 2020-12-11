@@ -39,9 +39,28 @@
 
   - name: load per node autoyast install configuration
     template:
-        src: templates/localurl-autoinst.xml.j2
+        src: templates/{{ node.hwtype }}-autoinst.xml.j2
         dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
         backup: yes
     vars:
         node: "{{ item.value }}"
     loop: "{{ nodes | dict2items }}"
+    when: node.hwtype == "dss7500"
+
+  - template:
+        src: templates/{{ node.hwtype }}-autoinst.xml.j2
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
+        backup: yes
+    vars:
+        node: "{{ item.value }}"
+    loop: "{{ nodes | dict2items }}"
+    when: node.hwtype == "r640"
+
+  - template:
+        src: templates/{{ node.hwtype }}-autoinst.xml.j2
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
+        backup: yes
+    vars:
+        node: "{{ item.value }}"
+    loop: "{{ nodes | dict2items }}"
+    when: node.hwtype == "vm"

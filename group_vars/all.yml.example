@@ -39,9 +39,11 @@ nodes:
     pxeimg: "efi"
     ip: "192.168.1.11"
     cidr: "192.168.1.11/24"
+    hwtype: "vm"
   02-00-00-00-00-02":
     eth: '02:00:00:00:00:02'
     name: "node02"
     pxeimg: "bios"
     ip: "192.168.1.12"
     cidr: "192.168.1.12/24"
+    hwtype: "vm"
