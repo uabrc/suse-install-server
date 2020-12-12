@@ -21,12 +21,9 @@
       idrac_password:  "{{ idrac_password }}"
     register: inventory_result
   
-  # would be nice to have an option to save the json to a file on the controller
-  # this feature doesn't work right because it tries to write on the client (idrac end)
+  # save the json to a file on the controller
   # based on:
-  # https://stackoverflow.com/a/26735551/8928529  
-  # - name: Write hardware inventory to files
-  #   local_action:
-  #     module: copy
-  #     content: "{{ inventory_result }}"
-  #     dest: "idrac-facts.json"
+  # https://stackoverflow.com/a/26735551/8928529
+  # appears to require single link local_action
+  - name: Write hardware inventory to files
+    local_action: copy content="{{ inventory_result }}" dest="{{ save_files_path }}{{ inventory_hostname }}-idrac-facts.json"
