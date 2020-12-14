@@ -138,27 +138,61 @@
     <interfaces config:type="list">
       <interface>
         <aliases/>
-        <bonding_module_opts>{{ node.bondargs }}</bonding_module_opts>
-        <bonding_slave0>{{ node.bondnic1 }}</bonding_slave0>
-        <bonding_slave1>{{ node.bondnic2 }}</bonding_slave1>
+        <bonding_module_opts>{{ node.bond0.args }}</bonding_module_opts>
+        <bonding_slave0>{{ node.bond0.nic1 }}</bonding_slave0>
+        <bonding_slave1>{{ node.bond0.nic2 }}</bonding_slave1>
         <bootproto>static</bootproto>
-        <ipaddr>{{ node.ip }}</ipaddr>
-        <mtu>{{ node.mtu }}</mtu>
-        <name>{{ node.bondname }}</name>
+        <ipaddr>{{ node.bond0.ip }}</ipaddr>
+        <mtu>{{ node.bond0.mtu }}</mtu>
+        <name>{{ node.bond0.name }}</name>
         <startmode>auto</startmode>
-        <prefixlen>{{ node.prefixlen }}</prefixlen>
+        <prefixlen>{{ node.bond0.prefixlen }}</prefixlen>
+      </interface>
+      <interface>
+        <aliases/>
+        <bonding_module_opts>{{ node.bond1.args }}</bonding_module_opts>
+        <bonding_slave0>{{ node.bond1.nic1 }}</bonding_slave0>
+        <bonding_slave1>{{ node.bond1.nic2 }}</bonding_slave1>
+        <bootproto>none</bootproto>
+        <mtu>{{ node.bond1.mtu }}</mtu>
+        <name>{{ node.bond1.name }}</name>
+        <startmode>auto</startmode>
       </interface>
       <interface>
         <aliases/>
         <bootproto>none</bootproto>
-        <name>{{ node.bondnic1 }}</name>
+        <name>{{ node.bond0.nic1 }}</name>
         <startmode>auto</startmode>
       </interface>
       <interface>
         <aliases/>
         <bootproto>none</bootproto>
-        <name>{{ node.bondnic2 }}</name>
+        <name>{{ node.bond0.nic2 }}</name>
         <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bond1.nic1 }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bond1.nic2 }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.clustervlan.device }}</etherdevice>
+        <ipaddr>{{ node.clustervlan.ip }}</ipaddr>
+        <mtu>{{ node.clustervlan.mtu }}</mtu>
+        <name>{{ node.clustervlan.name }}</name>
+        <prefixlen>{{ node.clustervlan.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <vlan_id>{{ node.clustervlan.vlanid }}</vlan_id>
+        <zone>{{ node.clustervlan.zone }}</zone>
       </interface>
     </interfaces>
     <ipv6 config:type="boolean">true</ipv6>
@@ -170,7 +204,7 @@
       <routes config:type="list">
         <route>
           <destination>default</destination>
-          <device>{{ node.bondname }}</device>
+          <device>{{ node.bond0.name }}</device>
           <gateway>{{ GATEWAY }}</gateway>
           <netmask>-</netmask>
         </route>
