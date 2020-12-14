@@ -40,6 +40,11 @@ nodes:
     ip: "192.168.1.11"
     cidr: "192.168.1.11/24"
     hwtype: "vm"
+    bondname: "bond0"
+    bondnic1: "p2p1"
+    bondnic2: "p1p2"
+    mtu: "1500"
+    bondargs: "mode=802.3ad miimon=100"
   02-00-00-00-00-02":
     eth: '02:00:00:00:00:02'
     name: "node02"

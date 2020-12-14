@@ -137,9 +137,28 @@
     </dns>
     <interfaces config:type="list">
       <interface>
-        <bootproto>dhcp</bootproto>
-        <name>{{ node.etherdevice }}</name>
-         <startmode>auto</startmode>
+        <aliases/>
+        <bonding_module_opts>{{ node.bondargs }}</bonding_module_opts>
+        <bonding_slave0>{{ node.bondnic1 }}</bonding_slave0>
+        <bonding_slave1>{{ node.bondnic2 }}</bonding_slave1>
+        <bootproto>static</bootproto>
+        <ipaddr>{{ node.ip }}</ipaddr>
+        <mtu>{{ node.mtu }}</mtu>
+        <name>{{ node.bondname }}</name>
+        <startmode>auto</startmode>
+        <prefixlen>{{ node.prefixlen }}</prefixlen>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bondnic1 }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bondnic2 }}</name>
+        <startmode>auto</startmode>
       </interface>
     </interfaces>
     <ipv6 config:type="boolean">true</ipv6>
@@ -151,7 +170,7 @@
       <routes config:type="list">
         <route>
           <destination>default</destination>
-          <device>{{ node.etherdevice }}</device>
+          <device>{{ node.bondname }}</device>
           <gateway>{{ GATEWAY }}</gateway>
           <netmask>-</netmask>
         </route>
