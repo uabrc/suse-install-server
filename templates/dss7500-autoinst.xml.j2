@@ -237,34 +237,66 @@
   </ntp-client>
   <partitioning config:type="list">
     <drive>
-      <initialize config:type="boolean">true</initialize>
+      <initialize config:type="boolean">false</initialize>
       <device>/dev/sdat</device>
       <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">false</enable_snapshots>
       <partitions config:type="list">
         <partition>
-          <raid_name>/dev/md0</raid_name>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">vfat</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/boot/efi</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>1073741824</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">253</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <raid_name>/dev/md/0</raid_name>
+          <resize config:type="boolean">false</resize>
           <size>max</size>
         </partition>
       </partitions>
       <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
     </drive>
     <drive>
       <initialize config:type="boolean">true</initialize>
       <device>/dev/sdau</device>
       <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">false</enable_snapshots>
       <partitions config:type="list">
         <partition>
-          <raid_name>/dev/md0</raid_name>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>1073741824</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">253</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <raid_name>/dev/md/0</raid_name>
+          <resize config:type="boolean">false</resize>
           <size>max</size>
         </partition>
       </partitions>
       <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
     </drive>
     <drive>
-      <device>/dev/md0</device>
-      <disklabel>gpt</disklabel>
+      <device>/dev/md/0</device>
       <enable_snapshots config:type="boolean">true</enable_snapshots>
-      <initialize config:type="boolean">true</initialize>
+      <initialize config:type="boolean">false</initialize>
       <partitions config:type="list">
         <partition>
           <create config:type="boolean">true</create>
@@ -335,8 +367,6 @@
           <partition_nr config:type="integer">3</partition_nr>
           <resize config:type="boolean">false</resize>
           <size>21474836480</size>
-          <subvolumes config:type="list"/>
-          <subvolumes_prefix><![CDATA[]]></subvolumes_prefix>
         </partition>
         <partition>
           <create config:type="boolean">true</create>
@@ -350,13 +380,16 @@
           <size>21475868160</size>
         </partition>
       </partitions>
-      <type config:type="symbol">CT_RAID</type>
-      <use>all</use>
       <raid_options>
         <chunk_size>0B</chunk_size>
+        <device_order config:type="list">
+          <device>/dev/sdat</device>
+          <device>/dev/sdau</device>
+        </device_order>
         <parity_algorithm>default</parity_algorithm>
         <raid_type>raid1</raid_type>
       </raid_options>
+      <type config:type="symbol">CT_MD</type>
     </drive>
   </partitioning>
   <proxy>
