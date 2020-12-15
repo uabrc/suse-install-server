@@ -185,14 +185,26 @@
       <interface>
         <aliases/>
         <bootproto>static</bootproto>
-        <etherdevice>{{ node.clustervlan.device }}</etherdevice>
-        <ipaddr>{{ node.clustervlan.ip }}</ipaddr>
-        <mtu>{{ node.clustervlan.mtu }}</mtu>
-        <name>{{ node.clustervlan.name }}</name>
-        <prefixlen>{{ node.clustervlan.prefixlen }}</prefixlen>
+        <etherdevice>{{ node.cephpublicvlan.device }}</etherdevice>
+        <ipaddr>{{ node.cephpublicvlan.ip }}</ipaddr>
+        <mtu>{{ node.cephpublicvlan.mtu }}</mtu>
+        <name>{{ node.cephpublicvlan.name }}</name>
+        <prefixlen>{{ node.cephpublicvlan.prefixlen }}</prefixlen>
         <startmode>auto</startmode>
-        <vlan_id>{{ node.clustervlan.vlanid }}</vlan_id>
-        <zone>{{ node.clustervlan.zone }}</zone>
+        <vlan_id>{{ node.cephpublicvlan.vlanid }}</vlan_id>
+        <zone>{{ node.cephpublicvlan.zone }}</zone>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.cephclustervlan.device }}</etherdevice>
+        <ipaddr>{{ node.cephclustervlan.ip }}</ipaddr>
+        <mtu>{{ node.cephclustervlan.mtu }}</mtu>
+        <name>{{ node.cephclustervlan.name }}</name>
+        <prefixlen>{{ node.cephclustervlan.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <vlan_id>{{ node.cephclustervlan.vlanid }}</vlan_id>
+        <zone>{{ node.cephclustervlan.zone }}</zone>
       </interface>
     </interfaces>
     <ipv6 config:type="boolean">true</ipv6>
