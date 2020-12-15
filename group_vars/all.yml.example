@@ -37,9 +37,31 @@ nodes:
     eth: '02:00:00:00:00:01'
     name: "node01"
     pxeimg: "efi"
-    ip: "192.168.1.11"
-    cidr: "192.168.1.11/24"
-    hwtype: "vm"
+    hwtype: "osd"
+    bond0:
+      name: "bond0"
+      nic1: "p2p1"
+      nic2: "p1p2"
+      mtu: "1500"
+      args: "mode=802.3ad miimon=100"
+      ip: "192.168.1.11"
+      prefixlen: "24"
+      cidr: "192.168.2.11/24"
+    bond1:
+      name: "bond1"
+      nic1: "p2p2"
+      nic2: "p1p1"
+      mtu: "9000"
+      args: "mode=802.3ad miimon=100"
+    clustervlan:
+      device: "bond1"
+      ip: "192.168.2.11"
+      name: "vlan2"
+      mtu: "9000"
+      prefixlen: "24"
+      cidr: "192.168.2.11/24"
+      vlanid: "2"
+      zone: "internal"
   02-00-00-00-00-02":
     eth: '02:00:00:00:00:02'
     name: "node02"
