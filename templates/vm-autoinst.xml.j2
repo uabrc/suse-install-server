@@ -141,6 +141,17 @@
         <name>{{ node.etherdevice }}</name>
          <startmode>auto</startmode>
       </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.cephpublicvlan.device }}</etherdevice>
+        <ipaddr>{{ node.cephpublicvlan.ip }}</ipaddr>
+        <mtu>{{ node.cephpublicvlan.mtu }}</mtu>
+        <name>{{ node.cephpublicvlan.name }}</name>
+        <prefixlen>{{ node.cephpublicvlan.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <zone>{{ node.cephpublicvlan.zone }}</zone>
+      </interface>
     </interfaces>
     <ipv6 config:type="boolean">true</ipv6>
     <keep_install_network config:type="boolean">true</keep_install_network>
