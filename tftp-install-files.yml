@@ -19,7 +19,7 @@
         backup: yes
     vars:
         node: "{{ item.value }}"
-    loop: "{{ nodes | dict2items }}"
+    loop: "{{ cluster[clustername] | dict2items }}"
     when: node.pxeimg == "efi"
 
   - name: ensure no default bios pxe configure exists
@@ -34,7 +34,7 @@
         backup: yes
     vars:
         node: "{{ item.value }}"
-    loop: "{{ nodes | dict2items }}"
+    loop: "{{ cluster[clustername] | dict2items }}"
     when: node.pxeimg == "bios"
 
   - name: load per node autoyast install configuration
@@ -44,7 +44,7 @@
         backup: yes
     vars:
         node: "{{ item.value }}"
-    loop: "{{ nodes | dict2items }}"
+    loop: "{{ cluster[clustername] | dict2items }}"
     when: node.hwtype == "dss7500"
 
   - template:
@@ -53,7 +53,7 @@
         backup: yes
     vars:
         node: "{{ item.value }}"
-    loop: "{{ nodes | dict2items }}"
+    loop: "{{ cluster[clustername] | dict2items }}"
     when: node.hwtype == "r640"
 
   - template:
@@ -62,5 +62,5 @@
         backup: yes
     vars:
         node: "{{ item.value }}"
-    loop: "{{ nodes | dict2items }}"
+    loop: "{{ cluster[clustername] | dict2items }}"
     when: node.hwtype == "vm"

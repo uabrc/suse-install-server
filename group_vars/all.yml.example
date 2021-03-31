@@ -7,11 +7,11 @@ OS_VERSION: "15-SP2"
 ARCH: "x86_64"
 OS_TFTP_TAG: "{{ OS_TAG }}-{{ OS_VERSION }}-{{ ARCH }}"
 MTU: 1500
-GATEWAY: "192.168.11.1"
+GATEWAY: "192.168.1.1"
 DNS1: "8.8.8.8"
 DNS2: "9.9.9.9"
 DNS3: ""
-DOMAIN: "nl.rc.uab.edu"
+DOMAIN: "example.org"
 DHCPD_INTERFACE: "vlan1"
 IFCFG_INTERFACE: "eth0.1"
 DHCP_IP_RANGE: "192.168.1.100 192.168.1.199"
@@ -25,6 +25,8 @@ VENV_PYTHON: "/path/to/python/venv/that/has/the/modules/you/need"
 install_sys: "tftp://{{ TFTP_SERVER }}/{{ OS_TFTP_TAG }}/boot/{{ ARCH }}/root"
 install_url: "http://{{ INST_SERVER }}/{{ INST_PATH }}"
 
+clustername: "cluster1"
+
 adminaccount:
   fullname: "Admin"
   username: "admin"
@@ -32,40 +34,41 @@ adminaccount:
 root:
   password: "!!"
 
-nodes:
-  02-00-00-00-00-01:
-    eth: '02:00:00:00:00:01'
-    name: "node01"
-    pxeimg: "efi"
-    hwtype: "osd"
-    bond0:
-      name: "bond0"
-      nic1: "p2p1"
-      nic2: "p1p2"
-      mtu: "1500"
-      args: "mode=802.3ad miimon=100"
-      ip: "192.168.1.11"
-      prefixlen: "24"
-      cidr: "192.168.2.11/24"
-    bond1:
-      name: "bond1"
-      nic1: "p2p2"
-      nic2: "p1p1"
-      mtu: "9000"
-      args: "mode=802.3ad miimon=100"
-    clustervlan:
-      device: "bond1"
-      ip: "192.168.2.11"
-      name: "vlan2"
-      mtu: "9000"
-      prefixlen: "24"
-      cidr: "192.168.2.11/24"
-      vlanid: "2"
-      zone: "internal"
-  02-00-00-00-00-02":
-    eth: '02:00:00:00:00:02'
-    name: "node02"
-    pxeimg: "bios"
-    ip: "192.168.1.12"
-    cidr: "192.168.1.12/24"
-    hwtype: "vm"
+cluster:
+  cluster1:
+    node01:
+      eth: '02:00:00:00:00:01'
+      name: "node01"
+      pxeimg: "efi"
+      hwtype: "osd"
+      bond0:
+        name: "bond0"
+        nic1: "p2p1"
+        nic2: "p1p2"
+        mtu: "1500"
+        args: "mode=802.3ad miimon=100"
+        ip: "192.168.1.11"
+        prefixlen: "24"
+        cidr: "192.168.2.11/24"
+      bond1:
+        name: "bond1"
+        nic1: "p2p2"
+        nic2: "p1p1"
+        mtu: "9000"
+        args: "mode=802.3ad miimon=100"
+      clustervlan:
+        device: "bond1"
+        ip: "192.168.2.11"
+        name: "vlan2"
+        mtu: "9000"
+        prefixlen: "24"
+        cidr: "192.168.2.11/24"
+        vlanid: "2"
+        zone: "internal"
+    node02:
+      eth: '02:00:00:00:00:02'
+      name: "node02"
+      pxeimg: "bios"
+      ip: "192.168.1.12"
+      cidr: "192.168.1.12/24"
+      hwtype: "vm"
