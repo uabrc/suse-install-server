@@ -57,6 +57,9 @@
         <nameserver>{{ DNS2 }}</nameserver>
       </nameservers>
       <resolv_conf_policy>auto</resolv_conf_policy>
+      <searchlist config:type="list">
+        <search>{{ NLDOMAIN }}</search>
+      </searchlist>
     </dns>
     <interfaces config:type="list">
       <interface>
