@@ -135,8 +135,14 @@
   </networking>
   <ntp-client>
     <ntp_policy><![CDATA[auto]]></ntp_policy>
-    <ntp_servers config:type="list"/>
-    <ntp_sync>manual</ntp_sync>
+    <ntp_servers config:type="list">
+      <ntp_server>
+        <address>{{ NTP_SERVERS }}</address>
+        <iburst config:type="boolean">true</iburst>
+        <offline config:type="boolean">false</offline>
+      </ntp_server>
+    </ntp_servers>
+    <ntp_sync>systemd</ntp_sync>
   </ntp-client>
   <partitioning config:type="list">
     <drive>
