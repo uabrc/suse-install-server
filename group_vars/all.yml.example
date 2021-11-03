@@ -5,6 +5,7 @@ INST_PATH: "sles"
 OS_TAG: "SLE"
 OS_VERSION: "15-SP2"
 ARCH: "x86_64"
+TFTP_BOOT_DIR: "/srv/tftpboot"
 OS_TFTP_TAG: "{{ OS_TAG }}-{{ OS_VERSION }}-{{ ARCH }}"
 MTU: 1500
 GATEWAY: "192.168.1.1"
