@@ -63,4 +63,13 @@
     vars:
         node: "{{ item.value }}"
     loop: "{{ cluster[clustername] | dict2items }}"
+    when: node.hwtype == "740xd"
+
+  - template:
+        src: templates/{{ node.hwtype }}-autoinst.xml.j2
+        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
+        backup: yes
+    vars:
+        node: "{{ item.value }}"
+    loop: "{{ cluster[clustername] | dict2items }}"
     when: node.hwtype == "vm"
