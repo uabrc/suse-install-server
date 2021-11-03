@@ -51,7 +51,7 @@
     </dhcp_options>
     <dns>
       <dhcp_hostname config:type="boolean">false</dhcp_hostname>
-      <hostname>{{ node.name }}</hostname>
+      <hostname>{{ node.hostname }}</hostname>
       <nameservers config:type="list">
         <nameserver>{{ DNS1 }}</nameserver>
         <nameserver>{{ DNS2 }}</nameserver>
