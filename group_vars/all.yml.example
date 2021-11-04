@@ -24,6 +24,7 @@ VENV_PYTHON: "/path/to/python/venv/that/has/the/modules/you/need"
 
 install_sys: "tftp://{{ TFTP_SERVER }}/{{ OS_TFTP_TAG }}/boot/{{ ARCH }}/root"
 install_url: "http://{{ INST_SERVER }}/{{ INST_PATH }}"
+installer_self_update: "{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}/Updates/SLE-INSTALLER/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update/"
 
 clustername: "cluster1"
 
