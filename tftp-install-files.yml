@@ -2,8 +2,8 @@
 # configure install environment
 #
 
-- hosts: localhost
-  become: no
+- hosts: head
+  become: yes
   become_user: root
 
   tasks:
