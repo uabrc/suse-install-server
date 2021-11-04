@@ -76,7 +76,7 @@
 
   - template:
         src: templates/{{ node.hwtype }}-autoinst.xml.j2
-        dest: /srv/tftpboot/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml
+        dest: "{{ TFTP_BOOT_DIR }}/{{ OS_TFTP_TAG }}/autoyast/{{ node.name }}-autoinst.xml"
         backup: yes
     vars:
         node: "{{ item.value }}"
