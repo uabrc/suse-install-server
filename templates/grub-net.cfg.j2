@@ -13,7 +13,7 @@ menuentry 'Installation' {
            ifcfg={{ node.provision.device }}=dhcp \
            install={{ REPO_URL }} \
            autoyast=tftp://{{ TFTP_SERVER }}/SLE-15-SP2-x86_64/autoyast/{{ node.name }}-autoinst.xml \
-           self_update=0 textmode=1
+           self_update={{ installer_self_update }} textmode=1
   echo 'Loading initrd ...'
   initrdefi $prefix/boot/x86_64/loader/initrd
 }
