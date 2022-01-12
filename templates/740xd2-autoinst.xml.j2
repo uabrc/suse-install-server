@@ -5,55 +5,32 @@
     <add_on_others config:type="list">
       <listentry>
         <alias>Basesystem_Module_15_SP2_x86_64:SLE-Module-Basesystem15-SP2-Updates</alias>
-	<media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}/Updates/SLE-Module-Basesystem/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update]]></media_url>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Updates/SLE-Module-Basesystem/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update]]></media_url>
         <name>SLE-Module-Basesystem15-SP2-Updates</name>
         <priority config:type="integer">99</priority>
-        </product_dir>
+	<product_dir/>
       </listentry>
       <listentry>
         <alias>Server_Applications_Module_15_SP2_x86_64:SLE-Module-Server-Applications15-SP2-Updates</alias>
-	<media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}/Updates/SLE-Module-Server-Applications/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update]]></media_url>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Updates/SLE-Module-Server-Applications/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update]]></media_url>
         <name>SLE-Module-Server-Applications15-SP2-Updates</name>
         <priority config:type="integer">99</priority>
-        </product_dir>
+	<product_dir/>
       </listentry>
     </add_on_others>
     <add_on_products config:type="list">
       <listentry>
-	      <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}/Products/SLE-Module-Basesystem/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/product]]></media_url>
-        <product>SLE-Module-Basesystem15-SP2-Pool</product>
-        </product_dir>
+       <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Products/SLE-Module-Basesystem/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/product]]></media_url>
+       <product>SLE-Module-Basesystem15-SP2-Pool</product>
+       <product_dir/>
       </listentry>
       <listentry>
-	      <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}/Products/SLE-Module-Server-Applications/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/product]]></media_url>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Products/SLE-Module-Server-Applications/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/product]]></media_url>
         <product>SLE-Module-Server-Applications15-SP2-Pool</product>
-        </product_dir>
+	<product_dir/>
       </listentry>
     </add_on_products>
   </add-on>
-  <bootloader>
-    <global>
-      <append>splash=silent resume=/dev/disk/by-id/scsi-364cd98f091e6a90026d12011e739a0ca-part4 mitigations=auto quiet</append>
-      <cpu_mitigations>auto</cpu_mitigations>
-      <gfxmode>auto</gfxmode>
-      <hiddenmenu>false</hiddenmenu>
-      <os_prober>false</os_prober>
-      <secure_boot>true</secure_boot>
-      <terminal>gfxterm</terminal>
-      <timeout config:type="integer">8</timeout>
-      <xen_kernel_append>vga=gfx-1024x768x16</xen_kernel_append>
-    </global>
-    <loader_type>grub2-efi</loader_type>
-  </bootloader>
-  <deploy_image>
-    <image_installation config:type="boolean">false</image_installation>
-  </deploy_image>
-  <firewall>
-     <default_zone>public</default_zone>
-     <enable_firewall config:type="boolean">false</enable_firewall>
-     <log_denied_packets>off</log_denied_packets>
-     <start_firewall config:type="boolean">false</start_firewall>
-  </firewall>
   <general>
     <ask-list config:type="list"/>
     <mode>
@@ -67,60 +44,6 @@
     </signature-handling>
     <storage/>
   </general>
-  <host>
-    <hosts config:type="list">
-      <hosts_entry>
-        <host_address>127.0.0.1</host_address>
-        <names config:type="list">
-          <name>localhost</name>
-        </names>
-      </hosts_entry>
-      <hosts_entry>
-        <host_address>::1</host_address>
-        <names config:type="list">
-          <name>localhost ipv6-localhost ipv6-loopback</name>
-        </names>
-      </hosts_entry>
-      <hosts_entry>
-        <host_address>fe00::0</host_address>
-        <names config:type="list">
-          <name>ipv6-localnet</name>
-        </names>
-      </hosts_entry>
-      <hosts_entry>
-        <host_address>ff00::0</host_address>
-        <names config:type="list">
-          <name>ipv6-mcastprefix</name>
-        </names>
-      </hosts_entry>
-      <hosts_entry>
-        <host_address>ff02::1</host_address>
-        <names config:type="list">
-          <name>ipv6-allnodes</name>
-        </names>
-      </hosts_entry>
-      <hosts_entry>
-        <host_address>ff02::2</host_address>
-        <names config:type="list">
-          <name>ipv6-allrouters</name>
-        </names>
-      </hosts_entry>
-      <hosts_entry>
-        <host_address>ff02::3</host_address>
-        <names config:type="list">
-          <name>ipv6-allhosts</name>
-        </names>
-      </hosts_entry>
-    </hosts>
-  </host>
-  <keyboard>
-    <keymap>english-us</keymap>
-  </keyboard>
-  <language>
-    <language>en_US</language>
-    <languages/>
-  </language>
-  <login_settings/>
   <networking>
     <dhcp_options>
       <dhclient_client_id/>
@@ -128,18 +51,73 @@
     </dhcp_options>
     <dns>
       <dhcp_hostname config:type="boolean">false</dhcp_hostname>
-      <hostname>{{ node.name }}</hostname>
+      <hostname>{{ node.hostname }}</hostname>
       <nameservers config:type="list">
         <nameserver>{{ DNS1 }}</nameserver>
         <nameserver>{{ DNS2 }}</nameserver>
       </nameservers>
       <resolv_conf_policy>auto</resolv_conf_policy>
+      <searchlist config:type="list">
+        <search>{{ NLDOMAIN }}</search>
+      </searchlist>
     </dns>
     <interfaces config:type="list">
       <interface>
-        <bootproto>dhcp</bootproto>
-        <name>{{ node.etherdevice }}</name>
-         <startmode>auto</startmode>
+        <aliases/>
+        <bonding_module_opts>{{ node.bond0.args }}</bonding_module_opts>
+        <bonding_slave0>{{ node.bond0.nic1 }}</bonding_slave0>
+        <bonding_slave1>{{ node.bond0.nic2 }}</bonding_slave1>
+        <bootproto>none</bootproto>
+        <mtu>{{ node.bond0.mtu }}</mtu>
+        <name>{{ node.bond0.name }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bond0.nic1 }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bond0.nic2 }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.cephpublicvlan.device }}</etherdevice>
+        <ipaddr>{{ node.cephpublicvlan.ip }}</ipaddr>
+        <mtu>{{ node.cephpublicvlan.mtu }}</mtu>
+        <name>{{ node.cephpublicvlan.name }}</name>
+        <prefixlen>{{ node.cephpublicvlan.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <vlan_id>{{ node.cephpublicvlan.vlanid }}</vlan_id>
+        <zone>{{ node.cephpublicvlan.zone }}</zone>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.cephclustervlan.device }}</etherdevice>
+        <ipaddr>{{ node.cephclustervlan.ip }}</ipaddr>
+        <mtu>{{ node.cephclustervlan.mtu }}</mtu>
+          <name>{{ node.cephclustervlan.name }}</name>
+        <prefixlen>{{ node.cephclustervlan.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <vlan_id>{{ node.cephclustervlan.vlanid }}</vlan_id>
+        <zone>{{ node.cephclustervlan.zone }}</zone>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.provision.device }}</etherdevice>
+        <ipaddr>{{ node.provision.ip }}</ipaddr>
+        <mtu>{{ node.provision.mtu }}</mtu>
+        <name>{{ node.provision.name }}</name>
+        <prefixlen>{{ node.provision.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <zone>{{ node.provision.zone }}</zone>
       </interface>
     </interfaces>
     <ipv6 config:type="boolean">true</ipv6>
@@ -151,38 +129,86 @@
       <routes config:type="list">
         <route>
           <destination>default</destination>
-          <device>{{ node.etherdevice }}</device>
+          <device>{{ node.provision.device }}</device>
           <gateway>{{ GATEWAY }}</gateway>
           <netmask>-</netmask>
         </route>
       </routes>
     </routing>
   </networking>
-  <nis>
-    <netconfig_policy>auto</netconfig_policy>
-    <nis_broadcast config:type="boolean">false</nis_broadcast>
-    <nis_broken_server config:type="boolean">false</nis_broken_server>
-    <nis_domain/>
-    <nis_local_only config:type="boolean">false</nis_local_only>
-  </nis>
   <ntp-client>
     <ntp_policy><![CDATA[auto]]></ntp_policy>
-    <ntp_servers config:type="list"/>
-    <ntp_sync>manual</ntp_sync>
+    <ntp_servers config:type="list">
+      <ntp_server>
+        <address>{{ NTP_SERVERS }}</address>
+        <iburst config:type="boolean">true</iburst>
+        <offline config:type="boolean">false</offline>
+      </ntp_server>
+    </ntp_servers>
+    <ntp_sync>systemd</ntp_sync>
   </ntp-client>
   <partitioning config:type="list">
     <drive>
-      <initialize config:type="boolean">true</initialize>
-      <skip_list config:type="list">
-        <listentry>
-          <skip_key>size_k</skip_key>
-          <skip_value>524288000</skip_value>
-          <skip_if_more_than config:type="boolean">true</skip_if_more_than>
-        </listentry>
-      </skip_list>
-      <device>/dev/sda</device>
+      <initialize config:type="boolean">false</initialize>
+      <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:22:0</device>
       <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">false</enable_snapshots>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">vfat</filesystem>
+	  <format config:type="boolean">true</format>
+          <mount>/boot/efi</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>1073741824</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">253</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <raid_name>/dev/md/0</raid_name>
+          <resize config:type="boolean">false</resize>
+          <size>max</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+    <drive>
+      <initialize config:type="boolean">false</initialize>
+      <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:23:0</device>
+      <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">false</enable_snapshots>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>1073741824</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">253</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <raid_name>/dev/md/0</raid_name>
+          <resize config:type="boolean">false</resize>
+          <size>max</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+    <drive>
+      <device>/dev/md/0</device>
       <enable_snapshots config:type="boolean">true</enable_snapshots>
+      <initialize config:type="boolean">false</initialize>
       <partitions config:type="list">
         <partition>
           <create config:type="boolean">true</create>
@@ -205,7 +231,7 @@
           <partition_id config:type="integer">131</partition_id>
           <partition_nr config:type="integer">2</partition_nr>
           <resize config:type="boolean">false</resize>
-          <size>195968368640</size>
+          <size>195478683648</size>
           <subvolumes config:type="list">
             <subvolume>
               <copy_on_write config:type="boolean">true</copy_on_write>
@@ -252,9 +278,7 @@
           <partition_id config:type="integer">131</partition_id>
           <partition_nr config:type="integer">3</partition_nr>
           <resize config:type="boolean">false</resize>
-          <size>21474836480</size>
-          <subvolumes config:type="list"/>
-          <subvolumes_prefix><![CDATA[]]></subvolumes_prefix>
+          <size>21422407680</size>
         </partition>
         <partition>
           <create config:type="boolean">true</create>
@@ -265,44 +289,22 @@
           <partition_id config:type="integer">130</partition_id>
           <partition_nr config:type="integer">4</partition_nr>
           <resize config:type="boolean">false</resize>
-          <size>21475868160</size>
+          <size>21421866496</size>
         </partition>
       </partitions>
-      <type config:type="symbol">CT_DISK</type>
+      <raid_options>
+        <chunk_size>0B</chunk_size>
+        <device_order config:type="list">
+          <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:22:0</device>
+          <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:23:0</device>
+        </device_order>
+        <parity_algorithm>default</parity_algorithm>
+        <raid_type>raid1</raid_type>
+      </raid_options>
+      <type config:type="symbol">CT_MD</type>
       <use>all</use>
     </drive>
   </partitioning>
-  <proxy>
-    <enabled config:type="boolean">false</enabled>
-    <ftp_proxy/>
-    <http_proxy/>
-    <https_proxy/>
-    <no_proxy>localhost,127.0.0.1</no_proxy>
-    <proxy_password/>
-    <proxy_user/>
-  </proxy>
-  <report>
-    <errors>
-      <log config:type="boolean">true</log>
-      <show config:type="boolean">true</show>
-      <timeout config:type="integer">0</timeout>
-    </errors>
-    <messages>
-      <log config:type="boolean">true</log>
-      <show config:type="boolean">true</show>
-      <timeout config:type="integer">0</timeout>
-    </messages>
-    <warnings>
-      <log config:type="boolean">true</log>
-      <show config:type="boolean">true</show>
-      <timeout config:type="integer">0</timeout>
-    </warnings>
-    <yesno_messages>
-      <log config:type="boolean">true</log>
-      <show config:type="boolean">true</show>
-      <timeout config:type="integer">0</timeout>
-    </yesno_messages>
-  </report>
   <security>
     <console_shutdown>reboot</console_shutdown>
     <cracklib_dict_path>/usr/lib/cracklib_dict</cracklib_dict_path>
@@ -432,9 +434,6 @@
     <reg_server_cert/>
     <slp_discovery config:type="boolean">false</slp_discovery>
   </suse_register>
-  <tftp-server>
-    <start_tftpd config:type="boolean">false</start_tftpd>
-  </tftp-server>
   <timezone>
     <hwclock>UTC</hwclock>
     <timezone>America/Chicago</timezone>
