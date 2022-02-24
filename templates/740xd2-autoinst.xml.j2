@@ -1,0 +1,498 @@
+<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+  <add-on>
+    <add_on_others config:type="list">
+      <listentry>
+        <alias>Basesystem_Module_15_SP2_x86_64:SLE-Module-Basesystem15-SP2-Updates</alias>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Updates/SLE-Module-Basesystem/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update]]></media_url>
+        <name>SLE-Module-Basesystem15-SP2-Updates</name>
+        <priority config:type="integer">99</priority>
+	<product_dir/>
+      </listentry>
+      <listentry>
+        <alias>Server_Applications_Module_15_SP2_x86_64:SLE-Module-Server-Applications15-SP2-Updates</alias>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Updates/SLE-Module-Server-Applications/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update]]></media_url>
+        <name>SLE-Module-Server-Applications15-SP2-Updates</name>
+        <priority config:type="integer">99</priority>
+	<product_dir/>
+      </listentry>
+    </add_on_others>
+    <add_on_products config:type="list">
+      <listentry>
+       <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Products/SLE-Module-Basesystem/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/product]]></media_url>
+       <product>SLE-Module-Basesystem15-SP2-Pool</product>
+       <product_dir/>
+      </listentry>
+      <listentry>
+        <media_url><![CDATA[{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH }}/Products/SLE-Module-Server-Applications/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/product]]></media_url>
+        <product>SLE-Module-Server-Applications15-SP2-Pool</product>
+	<product_dir/>
+      </listentry>
+    </add_on_products>
+  </add-on>
+  <firewall>
+     <default_zone>public</default_zone>
+     <enable_firewall config:type="boolean">false</enable_firewall>
+     <log_denied_packets>off</log_denied_packets>
+     <start_firewall config:type="boolean">false</start_firewall>
+  </firewall>
+  <general>
+    <ask-list config:type="list"/>
+    <mode>
+      <confirm config:type="boolean">false</confirm>
+    </mode>
+    <proposals config:type="list"/>
+    <signature-handling>
+      <accept_verification_failed config:type="boolean">
+        true
+      </accept_verification_failed>
+    </signature-handling>
+    <storage/>
+  </general>
+  <networking>
+    <dhcp_options>
+      <dhclient_client_id/>
+      <dhclient_hostname_option>AUTO</dhclient_hostname_option>
+    </dhcp_options>
+    <dns>
+      <dhcp_hostname config:type="boolean">false</dhcp_hostname>
+      <hostname>{{ node.hostname }}</hostname>
+      <nameservers config:type="list">
+        <nameserver>{{ DNS1 }}</nameserver>
+        <nameserver>{{ DNS2 }}</nameserver>
+      </nameservers>
+      <resolv_conf_policy>auto</resolv_conf_policy>
+      <searchlist config:type="list">
+        <search>{{ NLDOMAIN }}</search>
+      </searchlist>
+    </dns>
+    <interfaces config:type="list">
+      <interface>
+        <aliases/>
+        <bonding_module_opts>{{ node.bond0.args }}</bonding_module_opts>
+        <bonding_slave0>{{ node.bond0.nic1 }}</bonding_slave0>
+        <bonding_slave1>{{ node.bond0.nic2 }}</bonding_slave1>
+        <bootproto>none</bootproto>
+        <mtu>{{ node.bond0.mtu }}</mtu>
+        <name>{{ node.bond0.name }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bond0.nic1 }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>none</bootproto>
+        <name>{{ node.bond0.nic2 }}</name>
+        <startmode>auto</startmode>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.cephpublicvlan.device }}</etherdevice>
+        <ipaddr>{{ node.cephpublicvlan.ip }}</ipaddr>
+        <mtu>{{ node.cephpublicvlan.mtu }}</mtu>
+        <name>{{ node.cephpublicvlan.name }}</name>
+        <prefixlen>{{ node.cephpublicvlan.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <vlan_id>{{ node.cephpublicvlan.vlanid }}</vlan_id>
+        <zone>{{ node.cephpublicvlan.zone }}</zone>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.cephclustervlan.device }}</etherdevice>
+        <ipaddr>{{ node.cephclustervlan.ip }}</ipaddr>
+        <mtu>{{ node.cephclustervlan.mtu }}</mtu>
+          <name>{{ node.cephclustervlan.name }}</name>
+        <prefixlen>{{ node.cephclustervlan.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <vlan_id>{{ node.cephclustervlan.vlanid }}</vlan_id>
+        <zone>{{ node.cephclustervlan.zone }}</zone>
+      </interface>
+      <interface>
+        <aliases/>
+        <bootproto>static</bootproto>
+        <etherdevice>{{ node.provision.device }}</etherdevice>
+        <ipaddr>{{ node.provision.ip }}</ipaddr>
+        <mtu>{{ node.provision.mtu }}</mtu>
+        <name>{{ node.provision.name }}</name>
+        <prefixlen>{{ node.provision.prefixlen }}</prefixlen>
+        <startmode>auto</startmode>
+        <zone>{{ node.provision.zone }}</zone>
+      </interface>
+    </interfaces>
+    <ipv6 config:type="boolean">true</ipv6>
+    <keep_install_network config:type="boolean">true</keep_install_network>
+    <managed config:type="boolean">false</managed>
+    <routing>
+      <ipv4_forward config:type="boolean">false</ipv4_forward>
+      <ipv6_forward config:type="boolean">false</ipv6_forward>
+      <routes config:type="list">
+        <route>
+          <destination>default</destination>
+          <device>{{ node.provision.device }}</device>
+          <gateway>{{ GATEWAY }}</gateway>
+          <netmask>-</netmask>
+        </route>
+      </routes>
+    </routing>
+  </networking>
+  <ntp-client>
+    <ntp_policy><![CDATA[auto]]></ntp_policy>
+    <ntp_servers config:type="list">
+      <ntp_server>
+        <address>{{ NTP_SERVERS }}</address>
+        <iburst config:type="boolean">true</iburst>
+        <offline config:type="boolean">false</offline>
+      </ntp_server>
+    </ntp_servers>
+    <ntp_sync>systemd</ntp_sync>
+  </ntp-client>
+  <partitioning config:type="list">
+    <drive>
+      <initialize config:type="boolean">false</initialize>
+      <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:22:0</device>
+      <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">false</enable_snapshots>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">vfat</filesystem>
+	  <format config:type="boolean">true</format>
+          <mount>/boot/efi</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>1073741824</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">253</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <raid_name>/dev/md/0</raid_name>
+          <resize config:type="boolean">false</resize>
+          <size>max</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+    <drive>
+      <initialize config:type="boolean">false</initialize>
+      <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:23:0</device>
+      <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">false</enable_snapshots>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>1073741824</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <format config:type="boolean">false</format>
+          <partition_id config:type="integer">253</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <raid_name>/dev/md/0</raid_name>
+          <resize config:type="boolean">false</resize>
+          <size>max</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+    <drive>
+      <device>/dev/md/0</device>
+      <enable_snapshots config:type="boolean">true</enable_snapshots>
+      <initialize config:type="boolean">false</initialize>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">vfat</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/boot/efi</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>524288000</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <create_subvolumes config:type="boolean">true</create_subvolumes>
+          <filesystem config:type="symbol">btrfs</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">131</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>195478683648</size>
+          <subvolumes config:type="list">
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>boot/grub2/i386-pc</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>srv</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>tmp</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>opt</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>root</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>boot/grub2/x86_64-efi</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>usr/local</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">false</copy_on_write>
+              <path>var</path>
+            </subvolume>
+          </subvolumes>
+          <subvolumes_prefix><![CDATA[@]]></subvolumes_prefix>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <create_subvolumes config:type="boolean">false</create_subvolumes>
+          <filesystem config:type="symbol">btrfs</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/var/log</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">131</partition_id>
+          <partition_nr config:type="integer">3</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>21422407680</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">swap</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>swap</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">130</partition_id>
+          <partition_nr config:type="integer">4</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>21421866496</size>
+        </partition>
+      </partitions>
+      <raid_options>
+        <chunk_size>0B</chunk_size>
+        <device_order config:type="list">
+          <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:22:0</device>
+          <device>/dev/disk/by-path/pci-0000:18:00.0-scsi-0:0:23:0</device>
+        </device_order>
+        <parity_algorithm>default</parity_algorithm>
+        <raid_type>raid1</raid_type>
+      </raid_options>
+      <type config:type="symbol">CT_MD</type>
+      <use>all</use>
+    </drive>
+  </partitioning>
+  <security>
+    <console_shutdown>reboot</console_shutdown>
+    <cracklib_dict_path>/usr/lib/cracklib_dict</cracklib_dict_path>
+    <disable_restart_on_update>no</disable_restart_on_update>
+    <disable_stop_on_removal>no</disable_stop_on_removal>
+    <extra_services>insecure</extra_services>
+    <fail_delay>3</fail_delay>
+    <gid_max>60000</gid_max>
+    <gid_min>1000</gid_min>
+    <hibernate_system>active_console</hibernate_system>
+    <kernel.sysrq>184</kernel.sysrq>
+    <mandatory_services>secure</mandatory_services>
+    <net.ipv4.ip_forward>0</net.ipv4.ip_forward>
+    <net.ipv4.tcp_syncookies>0</net.ipv4.tcp_syncookies>
+    <net.ipv6.conf.all.forwarding>0</net.ipv6.conf.all.forwarding>
+    <pass_max_days>99999</pass_max_days>
+    <pass_min_days>0</pass_min_days>
+    <pass_min_len>5</pass_min_len>
+    <pass_warn_age>7</pass_warn_age>
+    <passwd_encryption>sha512</passwd_encryption>
+    <passwd_remember_history>0</passwd_remember_history>
+    <passwd_use_cracklib>yes</passwd_use_cracklib>
+    <permission_security>easy</permission_security>
+    <run_updatedb_as/>
+    <smtpd_listen_remote>no</smtpd_listen_remote>
+    <sys_gid_max>499</sys_gid_max>
+    <sys_gid_min>100</sys_gid_min>
+    <sys_uid_max>499</sys_uid_max>
+    <sys_uid_min>100</sys_uid_min>
+    <syslog_on_no_error>no</syslog_on_no_error>
+    <uid_max>60000</uid_max>
+    <uid_min>1000</uid_min>
+    <useradd_cmd>/usr/sbin/useradd.local</useradd_cmd>
+    <userdel_postcmd>/usr/sbin/userdel-post.local</userdel_postcmd>
+    <userdel_precmd>/usr/sbin/userdel-pre.local</userdel_precmd>
+  </security>
+  <services-manager>
+    <default_target>multi-user</default_target>
+    <services>
+      <disable config:type="list"/>
+      <enable config:type="list">
+        <service>YaST2-Firstboot</service>
+        <service>YaST2-Second-Stage</service>
+        <service>apparmor</service>
+        <service>auditd</service>
+        <service>klog</service>
+        <service>btrfsmaintenance-refresh</service>
+        <service>cron</service>
+        <service>firewalld</service>
+        <service>wickedd-auto4</service>
+        <service>wickedd-dhcp4</service>
+        <service>wickedd-dhcp6</service>
+        <service>wickedd-nanny</service>
+        <service>display-manager</service>
+        <service>getty@tty1</service>
+        <service>haveged</service>
+        <service>irqbalance</service>
+        <service>iscsi</service>
+        <service>issue-generator</service>
+        <service>kbdsettings</service>
+        <service>lvm2-monitor</service>
+        <service>wicked</service>
+        <service>nscd</service>
+        <service>postfix</service>
+        <service>purge-kernels</service>
+        <service>rollback</service>
+        <service>rsyslog</service>
+        <service>smartd</service>
+        <service>sshd</service>
+      </enable>
+      <on_demand config:type="list">
+        <listentry>iscsid</listentry>
+      </on_demand>
+    </services>
+  </services-manager>
+  <software>
+    <image/>
+    <install_recommended config:type="boolean">true</install_recommended>
+    <instsource/>
+    <packages config:type="list">
+      <package>wicked</package>
+      <package>snapper</package>
+      <package>sles-release</package>
+      <package>sle-module-server-applications-release</package>
+      <package>sle-module-basesystem-release</package>
+      <package>shim</package>
+      <package>openssh</package>
+      <package>numactl</package>
+      <package>mokutil</package>
+      <package>kexec-tools</package>
+      <package>irqbalance</package>
+      <package>grub2-x86_64-efi</package>
+      <package>glibc</package>
+      <package>firewalld</package>
+      <package>e2fsprogs</package>
+      <package>dosfstools</package>
+      <package>btrfsprogs</package>
+      <package>biosdevname</package>
+      <package>autoyast2</package>
+      <package>autoyast2-installation</package>
+    </packages>
+    <patterns config:type="list">
+      <pattern>apparmor</pattern>
+      <pattern>base</pattern>
+      <pattern>basic_desktop</pattern>
+      <pattern>enhanced_base</pattern>
+      <pattern>minimal_base</pattern>
+      <pattern>x11</pattern>
+      <pattern>x11_yast</pattern>
+      <pattern>yast2_basis</pattern>
+    </patterns>
+    <products config:type="list">
+      <product>SLES</product>
+    </products>
+  </software>
+  <ssh_import>
+    <copy_config config:type="boolean">false</copy_config>
+    <import config:type="boolean">false</import>
+  </ssh_import>
+  <suse_register>
+    <addons config:type="list"/>
+    <do_registration config:type="boolean">true</do_registration>
+    <email/>
+    <install_updates config:type="boolean">true</install_updates>
+    <reg_code/>
+    <reg_server><![CDATA[http://{{ TFTP_SERVER }}/]]></reg_server>
+    <reg_server_cert/>
+    <slp_discovery config:type="boolean">false</slp_discovery>
+  </suse_register>
+  <timezone>
+    <hwclock>UTC</hwclock>
+    <timezone>America/Chicago</timezone>
+  </timezone>
+  <user_defaults>
+    <expire/>
+    <group>100</group>
+    <groups/>
+    <home>/home</home>
+    <inactive>-1</inactive>
+    <no_groups config:type="boolean">true</no_groups>
+    <shell>/bin/bash</shell>
+    <skel>/etc/skel</skel>
+    <umask>022</umask>
+  </user_defaults>
+  <users config:type="list">
+    <user>
+      <authorized_keys config:type="list"/>
+      <encrypted config:type="boolean">true</encrypted>
+      <fullname>{{ adminaccount.fullname }}</fullname>
+      <home>/home/{{ adminaccount.username }}</home>
+      <home_btrfs_subvolume config:type="boolean">false</home_btrfs_subvolume>
+      <password_settings>
+        <expire/>
+        <flag/>
+        <inact/>
+        <max>99999</max>
+        <min>0</min>
+        <warn>7</warn>
+      </password_settings>
+      <shell>/bin/bash</shell>
+      <user_password>{{ adminaccount.password }}</user_password>
+      <username>{{ adminaccount.username }}</username>
+    </user>
+    <user>
+      <authorized_keys config:type="list"/>
+      <encrypted config:type="boolean">true</encrypted>
+      <fullname>root</fullname>
+      <gid>0</gid>
+      <home>/root</home>
+      <home_btrfs_subvolume config:type="boolean">false</home_btrfs_subvolume>
+      <password_settings>
+        <expire/>
+        <flag/>
+        <inact/>
+        <max/>
+        <min/>
+        <warn/>
+      </password_settings>
+      <shell>/bin/bash</shell>
+      <uid>0</uid>
+      <user_password>{{ root.password }}</user_password>
+      <username>root</username>
+    </user>
+  </users>
+</profile>

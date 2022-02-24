@@ -5,6 +5,7 @@ INST_PATH: "sles"
 OS_TAG: "SLE"
 OS_VERSION: "15-SP2"
 ARCH: "x86_64"
+TFTP_BOOT_DIR: "/srv/tftpboot"
 OS_TFTP_TAG: "{{ OS_TAG }}-{{ OS_VERSION }}-{{ ARCH }}"
 MTU: 1500
 GATEWAY: "192.168.1.1"
@@ -24,6 +25,7 @@ VENV_PYTHON: "/path/to/python/venv/that/has/the/modules/you/need"
 
 install_sys: "tftp://{{ TFTP_SERVER }}/{{ OS_TFTP_TAG }}/boot/{{ ARCH }}/root"
 install_url: "http://{{ INST_SERVER }}/{{ INST_PATH }}"
+installer_self_update: "{{ REPO_PROTO }}://{{ TFTP_SERVER }}/{{ INST_PATH|lower }}/Updates/SLE-INSTALLER/{{ OS_RELEASE }}-{{ OS_PATCH }}/{{ ARCH }}/update/"
 
 clustername: "cluster1"
 
