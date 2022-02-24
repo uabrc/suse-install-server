@@ -31,6 +31,12 @@
       </listentry>
     </add_on_products>
   </add-on>
+  <firewall>
+     <default_zone>public</default_zone>
+     <enable_firewall config:type="boolean">false</enable_firewall>
+     <log_denied_packets>off</log_denied_packets>
+     <start_firewall config:type="boolean">false</start_firewall>
+  </firewall>
   <general>
     <ask-list config:type="list"/>
     <mode>
